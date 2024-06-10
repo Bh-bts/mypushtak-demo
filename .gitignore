@@ -1,0 +1,24 @@
+# Python compiled files
+*.pyc
+__pycache__/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Report
+/pytest-report
+report.html
+
+# Static folders
+assets/

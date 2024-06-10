@@ -1,0 +1,36 @@
+# .github/workflows/test01.yaml
+name: Python Selenium Tests
+on:
+  workflow_dispatch:
+    # This workflow will be triggered manually from the GitHub Actions UI
+
+jobs:
+  test01:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out this repo
+        uses: actions/checkout@v2
+
+      # Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      # Install necessary packages from requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Run the PyTest script
+      - name: Run PyTest
+        run: pytest --html=./pytest-report/report.html --self-contained-html
+        env:
+          DEMO_BLAZE_EMAIL: ${{ secrets.MYPUSTAK_EMAIL }}
+          DEMO_BLAZE_PASSWORD: ${{ secrets.MYPUSTAK_PASSWORD }}
+
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: pytest-report/report.html
