@@ -6,11 +6,12 @@ import pytest
 
 @pytest.fixture(scope='class')
 def setUp(request):
+    # Read browser configuration and base URL from the settings file
     browser = config_reader.get('Settings', 'BROWSER')
     headless = config_reader.getboolean('Settings', 'HEADLESS')
     base_url = config_reader.get('Settings', 'BASE_URL')
-    print(f"Headless mode: {headless}")
 
+    # Initialize WebDriver based on the browser configuration
     if browser == 'chrome':
         options = webdriver.ChromeOptions()
         if headless:
@@ -29,9 +30,13 @@ def setUp(request):
     else:
         raise ValueError(f"Browser{browser} is not supported")
 
+    # Maximize window and navigate to the base URL
     driver.maximize_window()
     driver.get(base_url)
 
+    # Pass the WebDriver instance to the test class
     request.cls.driver = driver
     yield driver
+
+    # Quit the WebDriver instance after test class execution
     driver.quit()
