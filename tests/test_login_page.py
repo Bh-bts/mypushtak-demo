@@ -1,8 +1,8 @@
 import os
 
-from tests.test_BasePage import BaseTest
-from pages.LoginPage import LoginPage
-from pages.HomePage import HomePage
+from tests.test_base_page import BaseTest
+from pages.login_page import LoginPage
+from pages.home_page import HomePage
 
 
 # Test class for verifying user login functionality

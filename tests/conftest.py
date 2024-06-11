@@ -1,7 +1,7 @@
+import pytest
+
 from config.config_reader import config_reader
 from selenium import webdriver
-
-import pytest
 
 
 @pytest.fixture(scope='class')

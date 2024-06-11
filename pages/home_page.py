@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from pages.BasePage import BasePage
+from pages.base_page import BasePage
 
 
 class HomePage(BasePage):
@@ -34,8 +34,8 @@ class HomePage(BasePage):
 
     # Add a book to the cart
     def add_book_to_cart(self, book_title):
-        book_xpath = f"//h3[@title='{book_title}']//ancestor::div[@class='jsx-313054587']//button"
-        self.do_click((By.XPATH, book_xpath))
+        add_to_cart_button_element = f"//h3[@title='{book_title}']//ancestor::div[@class='jsx-313054587']//button"
+        self.do_click((By.XPATH, add_to_cart_button_element))
 
     # Click on the cart button
     def click_on_cart(self):
@@ -51,7 +51,11 @@ class HomePage(BasePage):
 
     # Get the price of a book from the Home Page
     def get_book_price_from_home_page(self, book_title):
-        price_xpath = f"//h3[@title='{book_title}']//ancestor::div[@class='jsx-313054587']//span[@class='jsx-313054587 BookCard_priceSpan__13QVE']"
+        price_xpath = f"//h3[@title='{book_title}']//ancestor::div[@class='col-6 col-sm-12 col-md-6 col-lg-3']//span[contains(@class, 'BookCard_priceSpan__13QVE')]"
         price_text = self.get_element_text((By.XPATH, price_xpath))
         price_number = price_text.replace('₹', '').replace(',', '').strip()
         return float(price_number)
+
+    def get_text_of_add_to_cart_button(self, book_title):
+        add_to_cart_button_element = f"//h3[@title='{book_title}']//ancestor::div[@class='col-6 col-sm-12 col-md-6 col-lg-3']//button"
+        return self.get_element_text((By.XPATH, add_to_cart_button_element))
