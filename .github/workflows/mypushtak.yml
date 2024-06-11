@@ -1,4 +1,3 @@
-# .github/workflows/test01.yaml
 name: Python Selenium Tests
 on:
   workflow_dispatch:
