@@ -7,14 +7,15 @@ import pytest
 @pytest.fixture(scope='class')
 def setUp(request):
     browser = config_reader.get('Settings', 'BROWSER')
-    headless = config_reader.get('Settings', 'HEADLESS')
+    headless = config_reader.getboolean('Settings', 'HEADLESS')
     base_url = config_reader.get('Settings', 'BASE_URL')
+    print(f"Headless mode: {headless}")
 
     if browser == 'chrome':
         options = webdriver.ChromeOptions()
         if headless:
             options.add_argument('--headless')
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome(options)
     elif browser == 'firefox':
         options = webdriver.FirefoxOptions()
         if headless:
