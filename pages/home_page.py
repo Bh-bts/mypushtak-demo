@@ -8,6 +8,8 @@ class HomePage(BasePage):
     search_field = (By.CSS_SELECTOR, "div[class*='text-sm'] input")
     search_button = (By.CSS_SELECTOR, "div[class*='text-sm'] button[aria-label='searchButton']")
     profile_text = (By.CSS_SELECTOR, "button[class='undefined icon'] span:nth-child(1)")
+    wishlist_button = (By.XPATH, "//div[text()=' My Wishlist']")
+    wishlist_toast_message_text = (By.XPATH, "//div[@id='notistack-snackbar']/div/span")
     cart_button = (By.CSS_SELECTOR, "div[class*=' d-none'] span:nth-child(3)")
     add_to_cart_button_on_popup = (By.CSS_SELECTOR, "div[class*='MuiDialog'] button[value='Add to Cart 1955']")
     books_added_to_cart_text = (By.XPATH, "//span[text()='Book added to cart!']")
@@ -57,5 +59,25 @@ class HomePage(BasePage):
         return float(price_number)
 
     def get_text_of_add_to_cart_button(self, book_title):
-        add_to_cart_button_element = f"//h3[@title='{book_title}']//ancestor::div[@class='col-6 col-sm-12 col-md-6 col-lg-3']//button"
+        add_to_cart_button_element = f"//h3[@title='{book_title}']//ancestor::div[contains(@class, 'col-6')]//button"
         return self.get_element_text((By.XPATH, add_to_cart_button_element))
+
+    def click_on_profile(self):
+        self.do_click(self.profile_text)
+
+    def click_on_wishlist_button(self):
+        self.do_click(self.wishlist_button)
+
+    def is_book_in_wishlist(self, book_title):
+        book_title_element = (By.XPATH, f"//h3[@title='{book_title}']//ancestor::div[contains(@class, 'col-6')]//div[contains(@class, 'Product_heartdiv__p_poW')]")
+        wishlist_button = self.find_element(book_title_element)
+        classes = wishlist_button.get_attribute('class')
+        return 'Product_click_wishlist__dkS5L' in classes
+
+    def add_to_wishlist(self, book_title):
+        if not self.is_book_in_wishlist(book_title):
+            book_title_element = (By.XPATH, f"//h3[@title='{book_title}']//ancestor::div[contains(@class, 'col-6')]//div[contains(@class, 'Product_heartdiv__p_poW')]")
+            self.do_click(book_title_element)
+
+    def wishlist_text_message(self):
+        return self.get_element_text(self.wishlist_toast_message_text)

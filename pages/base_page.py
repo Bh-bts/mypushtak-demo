@@ -41,6 +41,8 @@ class BasePage:
     def navigate_to_previous_page(self):
         self.driver.execute_script("window.history.go(-1)")
 
-    # Scroll to the bottom of the page
-    def scroll_to_bottom(self):
-        self.driver.execute_script("window.scrollTo(0, 550)")
+    def find_element(self, by_locator):
+        return self.driver.find_element(*by_locator)
+
+    def is_element_is_present(self, by_locator):
+        return self.driver.find_element(by_locator)
