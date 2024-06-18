@@ -70,7 +70,7 @@ class HomePage(BasePage):
 
     def is_book_in_wishlist(self, book_title):
         book_title_element = (By.XPATH, f"//h3[@title='{book_title}']//ancestor::div[contains(@class, 'col-6')]//div[contains(@class, 'Product_heartdiv__p_poW')]")
-        wishlist_button = self.find_element(book_title_element)
+        wishlist_button = self.is_element_is_present(book_title_element)
         classes = wishlist_button.get_attribute('class')
         return 'Product_click_wishlist__dkS5L' in classes
 

@@ -7,4 +7,5 @@ class WishlistPage(BasePage):
     book_title_text = (By.XPATH, "")
 
     def get_book_on_wishlist(self, book_title):
-        self.find_element((By.XPATH, f"f//div[@title='{book_title}']"))
+        book_title = self.is_element_is_present((By.XPATH, f"//div[@title='{book_title}']"))
+        return book_title.get_attribute("title")

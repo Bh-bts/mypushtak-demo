@@ -1,5 +1,6 @@
 import os
-import time
+
+import pytest
 
 from tests.test_base_page import BaseTest
 from pages.home_page import HomePage
@@ -24,14 +25,14 @@ class TestWishListPage(BaseTest):
         books_title = ['CRACK IMU-CET Entrance Exam', 'Mastering Yoga',
                        'The Yoga of Spiritual Devotion']
 
-        for books_title in books_title:
+        for book_title in books_title:
             self.homePage.clear_search_field()
-            self.homePage.enter_book_on_search_button(books_title)
+            self.homePage.enter_book_on_search_button(book_title)
             self.homePage.click_on_search_button()
-            self.homePage.add_to_wishlist(books_title)
-            self.homePage.click_on_profile()
-            self.homePage.click_on_wishlist_button()
-            # time.sleep(5)
-            self.wishlistPage = WishlistPage(self.driver)
+            self.homePage.add_to_wishlist(book_title)
 
-            #self.wishlistPage.get_book_on_wishlist(books_title)
+        self.homePage.click_on_profile()
+        self.homePage.click_on_wishlist_button()
+        self.wishlistPage = WishlistPage(self.driver)
+        for book_title in books_title:
+            assert self.wishlistPage.get_book_on_wishlist(book_title) == book_title
