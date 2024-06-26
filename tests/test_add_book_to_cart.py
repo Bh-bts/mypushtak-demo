@@ -1,4 +1,4 @@
-import os
+import pytest
 
 from tests.test_base_page import BaseTest
 from pages.home_page import HomePage
@@ -9,17 +9,11 @@ from pages.cart_page import CartPage
 # Test class for add book to cart functionality
 class TestAddBookToCart(BaseTest):
 
+    @pytest.mark.usefixtures("setUp", "login_fixture")
     # Verify total cart value calculation after adding three books
     def test_verify_total_cart_value_calculation_after_adding_three_books(self):
         self.homePage = HomePage(self.driver)
-        self.homePage.click_login_button_on_header()
-
-        # login to mypushtak site
         self.loginPage = LoginPage(self.driver)
-        email = os.getenv('MYPUSTAK_EMAIL')
-        password = os.getenv('MYPUSTAK_PASSWORD')
-        self.loginPage.do_login(email, password)
-        assert self.homePage.get_profile_text() == "Hi! Reader"
 
         # Store books title in list variable
         books_title = ['CRACK IMU-CET Entrance Exam', 'Mastering Yoga',
