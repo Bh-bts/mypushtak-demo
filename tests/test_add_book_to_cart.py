@@ -16,8 +16,8 @@ class TestAddBookToCart(BaseTest):
         self.loginPage = LoginPage(self.driver)
 
         # Store books title in list variable
-        books_title = ['CRACK IMU-CET Entrance Exam', 'Mastering Yoga',
-                       'The Yoga of Spiritual Devotion']
+        books_title = ['Yoga Wisdom at Work', 'Commando',
+                       'New Dimensions of Yoga']
 
         total_price = 0
 
