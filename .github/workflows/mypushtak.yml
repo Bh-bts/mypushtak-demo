@@ -1,7 +1,15 @@
 name: Python Selenium Tests
 on:
   workflow_dispatch:
-    # This workflow will be triggered manually from the GitHub Actions UI
+    inputs:
+      browser:
+        description: 'Browser to use (e.g., chrome, firefox, edge)'
+        required: true
+        default: 'chrome'
+      headless:
+        description: 'Run tests in headless mode (true/false)'
+        required: true
+        default: 'true'
 
 jobs:
   test01:
@@ -23,7 +31,7 @@ jobs:
 
       # Run the PyTest script
       - name: Run PyTest
-        run: pytest --html=./pytest-report/report.html --self-contained-html
+        run: pytest --html=./pytest-report/report.html --self-contained-html --browser ${{ github.event.inputs.browser }} --headless ${{ github.event.inputs.headless }}
         env:
           MYPUSTAK_EMAIL: ${{ secrets.MYPUSTAK_EMAIL }}
           MYPUSTAK_PASSWORD: ${{ secrets.MYPUSTAK_PASSWORD }}
