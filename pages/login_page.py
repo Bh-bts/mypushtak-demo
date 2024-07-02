@@ -7,7 +7,7 @@ class LoginPage(BasePage):
     email_text_field = (By.CSS_SELECTOR, "input[type='text']")
     password_text_field = (By.CSS_SELECTOR, "input[type='password']")
     proceed_button = (By.XPATH, "//button[text()='Proceed']")
-    login_button_in_form = (By.CSS_SELECTOR, "button[class*='WLoginNavbar_loginButton']")
+    login_button_in_form = (By.CSS_SELECTOR, "button[class*='loginButton']")
 
     # Perform login with provided email and password
     def do_login(self, email, password):

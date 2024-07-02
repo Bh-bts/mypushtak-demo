@@ -22,3 +22,6 @@ report.html
 
 # Static folders
 assets/
+
+# Screenshots folder
+screenshots/

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 import os
 
@@ -62,3 +64,23 @@ def login_fixture(setUp):
     loginPage.do_login(email, password)
     assert homePage.get_profile_text() == "Hi! Reader"
     yield
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item):
+    outcome = yield
+    report = outcome.get_result()
+    if report.when == 'call' and report.failed:
+        driver = item.funcargs.get('setUp')
+        if driver:
+            if not os.path.exists('screenshots'):
+                os.makedirs('screenshots')
+
+            class_name = item.cls.__name__ if item.cls else "NoClass"
+            function_name = item.name
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+
+            screenshot_name = f"{class_name}.{function_name}--{timestamp}.png"
+            screenshot_path = os.path.join('screenshots', screenshot_name)
+
+            driver.save_screenshot(screenshot_path)
