@@ -32,6 +32,9 @@ export MYPUSTAK_PASSWORD=your_mypustak_password
 - This command run the test in normal mode `pytest`
 - This command run the test in parallel mode `pytest -n 2`
 
+### Capture Screenshots on Test Failures
+Screenshots are automatically captured when a test fails and stored in the `screenshots` directory.
+
 ## Run Pustak Test using GitHub Actions
 
 ### Test Execution
@@ -46,5 +49,5 @@ To manually trigger a test run using GitHub Actions:
 1. Go to the Actions tab in your GitHub repository.
 2. Select the workflow you want to run.
 3. Click on the Run workflow button.
-4. Fill in any required parameters if prompted.
+4. Fill in any required parameters(Browser name and Headless mode) if prompted.
 5. Click the Run workflow button again to start the process.
